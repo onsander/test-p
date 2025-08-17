@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ тестового задания Evature - Задача №3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f0f15;
+            --bg-card: #1a1a25;
+            --bg-hover: #252536;
+            --primary: #8a2be2;
+            --primary-variant: #5a1a9c;
+            --secondary: #00c896;
+            --accent: #ff6b6b;
+            --on-primary: #ffffff;
+            --on-background: #e0e0e0;
+            --surface: #121218;
+            --error: #ff5252;
+            --text-primary: rgba(255, 255, 255, 0.92);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        header {
+            background: rgba(26, 26, 37, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2 i {
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin: 1.8rem 0 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin-left: 1.8rem;
+            margin-bottom: 1.3rem;
+        }
+
+        li {
+            margin-bottom: 0.7rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--bg-hover);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding: 1.1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--primary-variant), var(--primary));
+            color: var(--on-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(138, 43, 226, 0.15);
+        }
+
+        .download-btn, .link-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-variant));
+            color: var(--on-primary);
+            padding: 0.85rem 1.7rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 1.2rem;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .download-btn:hover, .link-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+
+        .link-button {
+            background: linear-gradient(90deg, var(--secondary), #00a87e);
+            box-shadow: 0 4px 15px rgba(0, 200, 150, 0.3);
+        }
+
+        .link-button:hover {
+            box-shadow: 0 6px 20px rgba(0, 200, 150, 0.5);
+        }
+
+        .section {
+            margin-bottom: 2.2rem;
+        }
+
+        .competitor-card {
+            background: rgba(37, 37, 54, 0.6);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin-bottom: 1.8rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+        }
+
+        .competitor-card:hover {
+            background: rgba(37, 37, 54, 0.8);
+            transform: translateX(5px);
+        }
+
+        .competitor-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.7rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            transform: scale(0.67); /* Уменьшено в 1.5 раза */
+            transform-origin: top left;
+        }
+
+        .product-image:hover {
+            transform: scale(0.67) scale(1.02);
+        }
+
+        .product-info {
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .product-title:hover {
+            opacity: 0.8;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 200, 150, 0.2);
+            color: var(--secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .why-appealing-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(37, 37, 54, 0.4);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-link {
+            display: block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-variant));
+            color: var(--on-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .product-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+
+        .two-column-layout {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .left-column {
+            flex: 1;
+        }
+
+        .right-column {
+            flex: 1.5;
+        }
+
+        footer {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .two-column-layout {
+                flex-direction: column;
+            }
+            
+            .left-column, .right-column {
+                width: 100%;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.25rem;
+            }
+            
+            ul, ol {
+                margin-left: 1.3rem;
+            }
+            
+            .product-title {
+                font-size: 1.5rem;
+            }
+            
+            .product-price {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-chart-line"></i> Анализ тестового задания Evature</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2><i class="fas fa-eye"></i> Задача №3: Насмотренность</h2>
+            <div class="section">
+                <h3><i class="fas fa-star"></i> Примеры артикулов с привлекательными карточками</h3>
+                <div class="competitor-card">
+                    <div class="two-column-layout">
+                        <div class="left-column">
+                            <img src="https://basket-22.wbbasket.ru/vol3840/part384041/384041932/images/c246x328/1.webp" alt="Платье на лямках голубой JoDemi" class="product-image">
+                        </div>
+                        <div class="right-column">
+                            <a href="https://www.wildberries.ru/l/384041932/detail.aspx" target="_blank" class="product-title">Платье на лямках голубой JoDemi</a>
+                            <span class="badge">Визуальная привлекательность</span>
+                            <div class="why-appealing-description">
+                                Очень привлекает внимание дополнительный яркий розовый цвет (цветы, туфли и стакан). 
+                                Тем самым акцентирует внимание на платье, выдвигая его на передний план.
+                            </div>
+                            <div class="product-price">1 482 ₽</div>
+                            <a href="https://www.wildberries.ru/l/384041932/detail.aspx" target="_blank" class="product-link">Перейти к товару</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="competitor-card">
+                    <div class="two-column-layout">
+                        <div class="left-column">
+                            <img src="https://basket-13.wbbasket.ru/vol2039/part203934/203934980/images/c246x328/1.webp" alt="Платье летнее короткое Kova-lova" class="product-image">
+                        </div>
+                        <div class="right-column">
+                            <a href="https://www.wildberries.ru/l/203934980/detail.aspx" target="_blank" class="product-title">Платье летнее короткое Kova-lova</a>
+                            <span class="badge">Эмоциональная привлекательность</span>
+                            <div class="why-appealing-description">
+                                Данная карточка цепляет "жизнью", живыми эмоциями, нежностью, легкостью и движениями. 
+                                Тем самым вызывает ощущение легкого летнего платья.
+                            </div>
+                            <div class="product-price">1 557 ₽</div>
+                            <a href="https://www.wildberries.ru/l/203934980/detail.aspx" target="_blank" class="product-link">Перейти к товару</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="competitor-card">
+                    <div class="two-column-layout">
+                        <div class="left-column">
+                            <img src="https://basket-22.wbbasket.ru/vol3917/part391763/391763451/images/c246x328/1.webp" alt="Платье праздничное с открытыми плечами L'anima" class="product-image">
+                        </div>
+                        <div class="right-column">
+                            <a href="https://www.wildberries.ru/l/391763451/detail.aspx" target="_blank" class="product-title">Платье праздничное с открытыми плечами L'anima</a>
+                            <span class="badge">Минималистичный дизайн</span>
+                            <div class="why-appealing-description">
+                                Данная карточка привлекает внимание минимализмом, моделью в полный рост и отличным 
+                                сочетанием белого фона с небольшой текстовой плажкой.
+                            </div>
+                            <div class="product-price">2 626 ₽</div>
+                            <a href="https://www.wildberries.ru/l/391763451/detail.aspx" target="_blank" class="product-link">Перейти к товару</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="competitor-card">
+                    <div class="two-column-layout">
+                        <div class="left-column">
+                            <img src="https://basket-22.wbbasket.ru/vol3917/part391763/391763451/images/c246x328/2.webp" alt="Платье праздничное с открытыми плечами L'anima" class="product-image">
+                        </div>
+                        <div class="right-column">
+                            <a href="https://www.wildberries.ru/" target="_blank" class="product-title">Интернет-магазин Wildberries</a>
+                            <span class="badge">Визуальные эффекты</span>
+                            <div class="why-appealing-description">
+                                Игра теней и затемненная задняя арка, очень выделяют платье на передний план и 
+                                делают карточку визуально цепляющей взгляд среди рядом стоящих карточек.
+                            </div>
+                            <div class="product-price">Скидки каждый день!</div>
+                            <a href="https://www.wildberries.ru/" target="_blank" class="product-link">Перейти к сайту</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h3><i class="fas fa-check-circle"></i> Общие элементы успешных карточек:</h3>
+                <ul>
+                    <li>Наличие профессиональных фотографий (минимум 7-10)</li>
+                    <li>Видеообзор или анимированные GIF</li>
+                    <li>Четкое структурирование информации</li>
+                    <li>Акцент на преимуществах, а не только на характеристиках</li>
+                    <li>Социальное доказательство (отзывы с фото)</li>
+                    <li>Сравнение с конкурентами</li>
+                    <li>Инфографика вместо сплошного текста</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p><i class="fas fa-copyright"></i> Анализ тестового задания Evature &copy; Александр Панин</p>
+    </footer>
+</body>
+</html>
